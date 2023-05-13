@@ -1,27 +1,57 @@
 package workteam.workteamservice.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import workteam.workteamservice.dto.UserDto;
 
+import workteam.workteamservice.facade.UserFacade;
 import workteam.workteamservice.utils.Constants;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(Constants.API.User.root)
 @CrossOrigin(origins = "http://localhost:4200")
 public class UserController {
 
-    @GetMapping(Constants.API.User.userDetails)
-    public ResponseEntity<UserDto> getUserDetails() {
-        UserDto userDto = new UserDto();
-        userDto.setEmail("email");
-        userDto.setName("name");
-        userDto.setRole("ADMIN");
-        userDto.setUsername("admin");
+    private final UserFacade userFacade;
 
-        return ResponseEntity.ok().body(userDto);
+    @Autowired
+    public UserController(UserFacade userFacade) {
+        this.userFacade = userFacade;
+    }
+
+    @GetMapping(Constants.API.User.userDetails)
+    public ResponseEntity<UserDto> getUserDetails(Authentication authentication) {
+        return ResponseEntity.ok().body(this.userFacade.getUserDetails(authentication));
+    }
+
+    @GetMapping(Constants.API.User.colleagues)
+    public ResponseEntity<List<UserDto>> getColleagues(Authentication authentication) {
+        return ResponseEntity.ok().body(this.userFacade.getColleagues(authentication));
+    }
+
+    @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
+    @PostMapping
+    public ResponseEntity<Void> createUser(@RequestBody UserDto userDto) {
+        this.userFacade.createUser(userDto);
+        return ResponseEntity.ok().build();
+    }
+
+    @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
+    @DeleteMapping("/{username}")
+    public ResponseEntity<Void> deleteUser(@PathVariable String username) {
+        this.userFacade.deleteUser(username);
+        return ResponseEntity.ok().build();
     }
 }

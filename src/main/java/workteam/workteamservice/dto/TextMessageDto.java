@@ -1,8 +1,12 @@
 package workteam.workteamservice.dto;
 
-public class TextDto {
+public class TextMessageDto {
 
     private String message;
+
+    public TextMessageDto(String message) {
+        this.message = message;
+    }
 
     public String getMessage() {
         return message;

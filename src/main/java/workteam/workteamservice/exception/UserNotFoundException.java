@@ -4,10 +4,10 @@ import org.springframework.http.HttpStatus;
 
 public class UserNotFoundException extends ResponseException {
 
-    public static final String USER_NOT_FOUND_MESSAGE = "User not found!";
+    public static final String USER_NOT_FOUND_MESSAGE = "User {username} not found!";
 
-    public UserNotFoundException() {
-        super(USER_NOT_FOUND_MESSAGE);
+    public UserNotFoundException(String username) {
+        super(USER_NOT_FOUND_MESSAGE.replace("{username}", username));
     }
 
     @Override

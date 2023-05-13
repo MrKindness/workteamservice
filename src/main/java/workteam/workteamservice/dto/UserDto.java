@@ -4,6 +4,8 @@ import workteam.workteamservice.entity.user.User;
 
 public class UserDto {
 
+    private String id;
+
     private String username;
 
     private String name;
@@ -13,6 +15,7 @@ public class UserDto {
     private String role;
 
     public UserDto(User user) {
+        this.id = user.getId().toString();
         this.username = user.getUsername();
         this.name = user.getName();
         this.email = user.getEmail();
@@ -20,6 +23,14 @@ public class UserDto {
     }
 
     public UserDto() {
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getUsername() {

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import workteam.workteamservice.dto.auth.AuthResponseDto;
 import workteam.workteamservice.dto.auth.AuthRequestDto;
-import workteam.workteamservice.service.impl.TokenService;
+import workteam.workteamservice.service.auth.TokenService;
 import workteam.workteamservice.utils.Constants;
 
 @RestController

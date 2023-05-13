@@ -1,4 +1,4 @@
-package workteam.workteamservice.service.impl;
+package workteam.workteamservice.service.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

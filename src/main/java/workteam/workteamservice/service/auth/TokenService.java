@@ -1,4 +1,4 @@
-package workteam.workteamservice.service.impl;
+package workteam.workteamservice.service.auth;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;

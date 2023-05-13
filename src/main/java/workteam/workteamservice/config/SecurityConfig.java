@@ -25,7 +25,7 @@ import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.oauth2.server.resource.web.BearerTokenAuthenticationEntryPoint;
 import org.springframework.security.oauth2.server.resource.web.access.BearerTokenAccessDeniedHandler;
 import org.springframework.security.web.SecurityFilterChain;
-import workteam.workteamservice.service.impl.WorkTeamUserDetailsServiceImpl;
+import workteam.workteamservice.service.auth.WorkTeamUserDetailsServiceImpl;
 import workteam.workteamservice.utils.Constants;
 
 @Configuration

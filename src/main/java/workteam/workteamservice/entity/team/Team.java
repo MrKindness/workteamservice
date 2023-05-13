@@ -43,4 +43,9 @@ public class Team extends BaseEntity {
     public void setUsers(Set<User> users) {
         this.users = users;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof Team && this.name.equals(((Team) obj).name);
+    }
 }
