@@ -9,11 +9,13 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import workteam.workteamservice.dto.UserDto;
+import workteam.workteamservice.dto.user.UserDto;
 
+import workteam.workteamservice.dto.user.UserEditDto;
 import workteam.workteamservice.facade.UserFacade;
 import workteam.workteamservice.utils.Constants;
 
@@ -45,6 +47,19 @@ public class UserController {
     @PostMapping
     public ResponseEntity<Void> createUser(@RequestBody UserDto userDto) {
         this.userFacade.createUser(userDto);
+        return ResponseEntity.ok().build();
+    }
+
+    @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
+    @PutMapping
+    public ResponseEntity<Void> updateUser(@RequestBody UserDto userDto) {
+        this.userFacade.updateUser(userDto);
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping(Constants.API.User.self)
+    public ResponseEntity<Void> updateUserSelf(@RequestBody UserEditDto userDto) {
+        this.userFacade.updateUserSelf(userDto);
         return ResponseEntity.ok().build();
     }
 

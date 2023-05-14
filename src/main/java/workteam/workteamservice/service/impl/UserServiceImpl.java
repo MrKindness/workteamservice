@@ -13,6 +13,7 @@ import workteam.workteamservice.service.UserService;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,6 +24,13 @@ public class UserServiceImpl implements UserService {
     @Autowired
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public User loadUserById(UUID id) throws UsernameNotFoundException {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException(id.toString()));
     }
 
     @Override
@@ -62,6 +70,28 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
+    public void update(User newUser) {
+        User dbUser = this.loadUserById(newUser.getId());
+
+        validateUpdateUser(dbUser, newUser);
+
+        dbUser.setUsername(newUser.getUsername());
+        dbUser.setName(newUser.getUsername());
+        dbUser.setEmail(newUser.getEmail());
+
+        if(Objects.nonNull(newUser.getPassword()) && newUser.getPassword().length() > 0) {
+            dbUser.setPassword(newUser.getPassword());
+        }
+
+        if(Objects.nonNull(newUser.getRoles()) && !newUser.getRoles().isEmpty()) {
+            dbUser.setRoles(newUser.getRoles());
+        }
+
+        this.userRepository.save(dbUser);
+    }
+
+    @Override
+    @Transactional
     public void deleteByUsername(String username) {
         User user = this.loadUserByUsername(username);
         this.userRepository.deleteById(user.getId());
@@ -82,6 +112,16 @@ public class UserServiceImpl implements UserService {
 
         if(user.getRoles().isEmpty()) {
             throw new ValidationException("Invalid role!");
+        }
+    }
+
+    private void validateUpdateUser(User dbUser, User newUser) {
+        if(!dbUser.getUsername().equals(newUser.getUsername()) && this.userRepository.existsByUsername(newUser.getUsername())) {
+            throw new ValidationException("Invalid username!");
+        }
+
+        if(!dbUser.getEmail().equals(newUser.getEmail()) && this.userRepository.existsByEmail(newUser.getEmail())) {
+            throw new ValidationException("Invalid email!");
         }
     }
 }

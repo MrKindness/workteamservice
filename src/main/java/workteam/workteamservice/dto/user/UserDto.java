@@ -1,4 +1,4 @@
-package workteam.workteamservice.dto;
+package workteam.workteamservice.dto.user;
 
 import workteam.workteamservice.entity.user.User;
 
@@ -13,6 +13,8 @@ public class UserDto {
     private String email;
 
     private String role;
+
+    private String password;
 
     public UserDto(User user) {
         this.id = user.getId().toString();
@@ -63,5 +65,13 @@ public class UserDto {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

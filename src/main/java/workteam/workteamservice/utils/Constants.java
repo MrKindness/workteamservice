@@ -11,6 +11,7 @@ public class Constants {
             public static final String root = API.root + "/user";
             public static final String userDetails = "/userDetails";
             public static final String colleagues = "/colleagues";
+            public static final String self = "/self";
         }
 
         public static class Team {
