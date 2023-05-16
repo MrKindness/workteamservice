@@ -37,15 +37,7 @@ public class TeamFacade {
         if (caller.getRoles().iterator().next().getName().equals("ADMIN")) {
             return teams.stream().map(TeamDto::new).collect(Collectors.toList());
         } else {
-            return teams.stream().filter(team -> {
-                for (User user : team.getUsers()) {
-                    if (user.getUsername().equals(caller.getUsername())) {
-                        return true;
-                    }
-                }
-                return false;
-            }).map(TeamDto::new).collect(Collectors.toList());
-//            return caller.getTeams().stream().map(TeamDto::new).collect(Collectors.toList());
+            return caller.getTeams().stream().map(TeamDto::new).collect(Collectors.toList());
         }
     }
 
