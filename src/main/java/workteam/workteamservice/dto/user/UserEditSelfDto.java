@@ -1,6 +1,6 @@
 package workteam.workteamservice.dto.user;
 
-public class UserEditDto {
+public class UserEditSelfDto {
 
     private String id;
 

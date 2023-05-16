@@ -17,6 +17,7 @@ public class Constants {
         public static class Team {
             public static final String root = API.root + "/team";
             public static final String teams = "/teams";
+            public static final String candidates = "/candidates";
         }
     }
 }

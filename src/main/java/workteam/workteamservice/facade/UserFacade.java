@@ -6,7 +6,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import workteam.workteamservice.dto.user.UserDto;
-import workteam.workteamservice.dto.user.UserEditDto;
+import workteam.workteamservice.dto.user.UserEditSelfDto;
 import workteam.workteamservice.entity.role.Role;
 import workteam.workteamservice.entity.user.User;
 import workteam.workteamservice.exception.ValidationException;
@@ -58,7 +58,7 @@ public class UserFacade {
     }
 
     @Transactional
-    public void updateUserSelf(UserEditDto userDto) {
+    public void updateUserSelf(UserEditSelfDto userDto) {
         User newUser = convertUserEditToEntity(userDto);
         User dbUser = this.userService.loadUserById(newUser.getId());
 
@@ -84,7 +84,7 @@ public class UserFacade {
         User user = new User();
         UUID id = null;
 
-        if(userDto.getId().length() > 0) {
+        if(Objects.nonNull(userDto.getId()) && userDto.getId().length() > 0) {
             try {
                 id = UUID.fromString(userDto.getId());
             } catch (Exception ignored) {
@@ -103,7 +103,7 @@ public class UserFacade {
         return user;
     }
 
-    private User convertUserEditToEntity(UserEditDto userEditDto) {
+    private User convertUserEditToEntity(UserEditSelfDto userEditDto) {
         User user = new User();
         UUID id = null;
 

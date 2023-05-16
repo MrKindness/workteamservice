@@ -7,6 +7,8 @@ import java.util.UUID;
 
 public interface UserService {
 
+    List<User> loadAll();
+
     User loadUserById(UUID id);
 
     User loadUserByUsername(String username);

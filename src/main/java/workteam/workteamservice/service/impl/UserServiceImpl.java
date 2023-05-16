@@ -27,6 +27,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> loadAll() {
+        return this.userRepository.findAll();
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public User loadUserById(UUID id) throws UsernameNotFoundException {
         return userRepository.findById(id)
@@ -71,7 +76,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void update(User newUser) {
-        User dbUser = this.loadUserById(newUser.getId());
+        User dbUser = loadUserById(newUser.getId());
 
         validateUpdateUser(dbUser, newUser);
 

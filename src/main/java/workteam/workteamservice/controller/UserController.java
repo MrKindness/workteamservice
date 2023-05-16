@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import workteam.workteamservice.dto.user.UserDto;
 
-import workteam.workteamservice.dto.user.UserEditDto;
+import workteam.workteamservice.dto.user.UserEditSelfDto;
 import workteam.workteamservice.facade.UserFacade;
 import workteam.workteamservice.utils.Constants;
 
@@ -58,7 +58,7 @@ public class UserController {
     }
 
     @PutMapping(Constants.API.User.self)
-    public ResponseEntity<Void> updateUserSelf(@RequestBody UserEditDto userDto) {
+    public ResponseEntity<Void> updateUserSelf(@RequestBody UserEditSelfDto userDto) {
         this.userFacade.updateUserSelf(userDto);
         return ResponseEntity.ok().build();
     }

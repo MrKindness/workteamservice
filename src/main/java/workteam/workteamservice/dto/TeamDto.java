@@ -20,6 +20,9 @@ public class TeamDto {
         this.users = team.getUsers().stream().map(User::getUsername).collect(Collectors.toList());
     }
 
+    public TeamDto() {
+    }
+
     public String getId() {
         return id;
     }
